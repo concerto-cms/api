@@ -22,6 +22,8 @@
                 "summary": "Sites available for the user",
                 "description": "Retrieve a list of sites that are available to the user given a certain role\n",
                 "parameters": [],
+                "operationId": "getAvailableSites",
+                "x-swagger-router-controller": "sites",
                 "responses": {
                     "200": {
                         "description": "An array of sites",
@@ -39,6 +41,26 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "summary": "Create a new site",
+                "tags": [
+                  "Sites"
+                ],
+                "description": "Create a new site (where the user will automatically be granted the OWNER role",
+                "parameters": [
+
+                ],
+                "x-swagger-router-controller": "sites",
+                "operationId": "createSite",
+                "responses": {
+                    "200": {
+                        "description": "Site created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Site"
+                        }
+                    }
+                }
             }
         },
         "/sites/{siteID}": {
@@ -46,6 +68,8 @@
                 "tags": [
                     "Sites"
                 ],
+                "x-swagger-router-controller": "sites",
+                "operationId": "getSite",
                 "summary": "Site details",
                 "parameters": [
                     {
@@ -76,6 +100,8 @@
                 "tags": [
                     "User"
                 ],
+                "x-swagger-router-controller": "profile",
+                "operationId": "getProfile",
                 "summary": "User Profile",
                 "description": "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
                 "parameters": [],
