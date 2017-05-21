@@ -14,6 +14,32 @@
         "application/json"
     ],
     "paths": {
+        "/me": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "x-swagger-router-controller": "profile",
+                "operationId": "getProfile",
+                "summary": "User Profile",
+                "description": "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Profile information for a user",
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
         "/sites": {
             "get": {
                 "tags": [
@@ -64,6 +90,14 @@
             }
         },
         "/sites/{siteID}": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
             "get": {
                 "tags": [
                     "Sites"
@@ -71,14 +105,6 @@
                 "x-swagger-router-controller": "sites",
                 "operationId": "getSite",
                 "summary": "Site details",
-                "parameters": [
-                    {
-                        "name": "siteID",
-                        "in": "path",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Details of the given Site",
@@ -93,24 +119,462 @@
                         }
                     }
                 }
+            },
+            "put": {
+                "tags": [
+                    "Sites"
+                ],
+                "x-swagger-router-controller": "sites",
+                "operationId": "updateSite",
+                "summary": "Update a site",
+                "responses": {
+                    "200": {
+                        "description": "Details of the given Site",
+                        "schema": {
+                            "$ref": "#/definitions/Site"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Sites"
+                ],
+                "x-swagger-router-controller": "sites",
+                "operationId": "removeSite",
+                "summary": "Remove a site",
+                "responses": {
+                    "204": {
+                        "description": "Site has been deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
         },
-        "/me": {
+        "/sites/{siteID}/blocks": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
             "get": {
                 "tags": [
-                    "User"
+                    "Blocks"
                 ],
-                "x-swagger-router-controller": "profile",
-                "operationId": "getProfile",
-                "summary": "User Profile",
-                "description": "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
+                "summary": "List of blocks",
+                "description": "Retrieve a list of blocks\n",
+                "parameters": [],
+                "x-swagger-router-controller": "blocks",
+                "operationId": "getBlocks",
+                "responses": {
+                    "200": {
+                        "description": "An array of blocks",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Block"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new block",
+                "tags": [
+                    "Blocks"
+                ],
+                "description": "Create a new block",
+                "parameters": [],
+                "x-swagger-router-controller": "blocks",
+                "operationId": "createBlock",
+                "responses": {
+                    "200": {
+                        "description": "Block created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Block"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}/blocks/{blockID}": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "blockID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Blocks"
+                ],
+                "x-swagger-router-controller": "blocks",
+                "operationId": "getBlock",
+                "summary": "Block details",
                 "parameters": [],
                 "responses": {
                     "200": {
-                        "description": "Profile information for a user",
+                        "description": "Details of the given Block",
                         "schema": {
-                            "$ref": "#/definitions/Profile"
+                            "$ref": "#/definitions/Block"
                         }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Blocks"
+                ],
+                "x-swagger-router-controller": "blocks",
+                "operationId": "updateBlock",
+                "summary": "Update a block",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Block updated",
+                        "schema": {
+                            "$ref": "#/definitions/Block"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Blocks"
+                ],
+                "x-swagger-router-controller": "blocks",
+                "operationId": "removeBlock",
+                "summary": "Remove a site",
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "Block has been deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}/models": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "summary": "List of models",
+                "description": "Retrieve a list of models\n",
+                "parameters": [],
+                "operationId": "getAvailableModels",
+                "x-swagger-router-controller": "models",
+                "responses": {
+                    "200": {
+                        "description": "An array of models",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Model"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new model",
+                "tags": [
+                    "Models"
+                ],
+                "description": "Create a new model",
+                "parameters": [],
+                "x-swagger-router-controller": "models",
+                "operationId": "createModel",
+                "responses": {
+                    "200": {
+                        "description": "Model created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Model"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}/models/{modelID}": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "modelID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Models"
+                ],
+                "x-swagger-router-controller": "models",
+                "operationId": "getModel",
+                "summary": "Model details",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Details of the given model",
+                        "schema": {
+                            "$ref": "#/definitions/Model"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Models"
+                ],
+                "x-swagger-router-controller": "models",
+                "operationId": "updateModel",
+                "summary": "Update a model",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Model updated",
+                        "schema": {
+                            "$ref": "#/definitions/Model"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Models"
+                ],
+                "x-swagger-router-controller": "models",
+                "operationId": "removeModel",
+                "summary": "Remove a model",
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "Model has been deleted"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}/models/{modelID}/content": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "modelID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Content"
+                ],
+                "summary": "List of content items",
+                "description": "Retrieve a list of content items\n",
+                "parameters": [],
+                "x-swagger-router-controller": "content",
+                "operationId": "getContent",
+                "responses": {
+                    "200": {
+                        "description": "An array of content items",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Content"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new content item",
+                "tags": [
+                    "Content"
+                ],
+                "description": "Create a new content item",
+                "parameters": [],
+                "x-swagger-router-controller": "content",
+                "operationId": "createItem",
+                "responses": {
+                    "200": {
+                        "description": "Content item created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Content"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}/models/{modelID}/content/{contentID}": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "modelID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "contentID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Content"
+                ],
+                "x-swagger-router-controller": "content",
+                "operationId": "getContentItem",
+                "summary": "Block details",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Details of the given item",
+                        "schema": {
+                            "$ref": "#/definitions/Content"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Content"
+                ],
+                "x-swagger-router-controller": "content",
+                "operationId": "updateContentItem",
+                "summary": "Update an item",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Content item updated",
+                        "schema": {
+                            "$ref": "#/definitions/Content"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Content"
+                ],
+                "x-swagger-router-controller": "content",
+                "operationId": "removeItem",
+                "summary": "Remove a content item",
+                "parameters": [],
+                "responses": {
+                    "204": {
+                        "description": "Content item has been deleted"
                     },
                     "default": {
                         "description": "Unexpected error",
@@ -190,8 +654,44 @@
                 },
                 "message": {
                     "type": "string"
+                }
+            }
+        },
+        "Block": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "template": {
+                    "type": "string"
                 },
                 "fields": {
+                    "type": "array"
+                }
+            }
+        },
+        "Model": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "array"
+                }
+            }
+        },
+        "Content": {
+            "type": "object",
+            "properties": {
+                "id": {
                     "type": "string"
                 }
             }

@@ -8,8 +8,9 @@ module.exports = (app) => {
     app.get('/mgmt/v1', swaggerUi.serve, swaggerUi.setup(mgmtSpec));
     swagger.setUpRoutes({
         sites: SitesController(),
-        profile: {
-
-        },
+        profile: {},
+        blocks: {},
+        models: {},
+        content: {},
     }, app, mgmtSpec, true);
 };

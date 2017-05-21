@@ -19,6 +19,20 @@ app.use(bodyParser.json({
 
 managementModule(app);
 
+app.use((req, res, next) => {
+    res.status(404).send({
+        code: res.statusCode,
+        message: 'Not found',
+    });
+});
+
+app.use((err, req, res, next) => {
+    res.status(500).send({
+    	code: res.statusCode,
+		message: err.message,
+	});
+});
+
 app.server.listen(process.env.PORT || 3000, () => {
 	console.log(`Started on port ${app.server.address().port}`);
 });

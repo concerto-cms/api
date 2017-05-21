@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  web:
+    command: npm start
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - 3000
+    links:
+      - mongo
+    environment:
+      - MONGO_DB_URI=mongodb://mongo:27017/concerto
+      - VIRTUAL_HOST=api.concerto.docker
+
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes_from:
+      - mongodata
+
+  mongodata:
+    image: tianon/true
+    volumes:
+      - /data/db
