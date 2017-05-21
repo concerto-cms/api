@@ -1,0 +1,174 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API to be used by Concerto CMS",
+        "version": "1.0.0",
+        "title": "Concerto Management API"
+    },
+    "host": "api.concerto-cms-org",
+    "basePath": "/mgmt/v1",
+    "schemes": [
+        "https"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/sites": {
+            "get": {
+                "tags": [
+                    "Sites"
+                ],
+                "summary": "Sites available for the user",
+                "description": "Retrieve a list of sites that are available to the user given a certain role\n",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "An array of sites",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Site"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}": {
+            "get": {
+                "tags": [
+                    "Sites"
+                ],
+                "summary": "Site details",
+                "parameters": [
+                    {
+                        "name": "siteID",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Details of the given Site",
+                        "schema": {
+                            "$ref": "#/definitions/Site"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/me": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Profile",
+                "description": "The User Profile endpoint returns information about the Uber user that has authorized with the application.",
+                "parameters": [],
+                "responses": {
+                    "200": {
+                        "description": "Profile information for a user",
+                        "schema": {
+                            "$ref": "#/definitions/Profile"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Site": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Unique identifier representing a specific site."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the site."
+                },
+                "role": {
+                    "type": "string",
+                    "description": "Role of the current user"
+                },
+                "users": {
+                    "type": "array",
+                    "description": "List of users contributing to the site.",
+                    "items": {
+                        "$ref": "#/definitions/SiteUser"
+                    }
+                }
+            }
+        },
+        "SiteUser": {
+            "type": "object",
+            "properties": {
+                "user_id": {
+                    "type": "string",
+                    "description": "Unique identifier of the user"
+                },
+                "role": {
+                    "type": "string",
+                    "description": "Role of the given user for the site"
+                }
+            }
+        },
+        "Profile": {
+            "type": "object",
+            "properties": {
+                "first_name": {
+                    "type": "string",
+                    "description": "First name of the Uber user."
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Last name of the Uber user."
+                },
+                "email": {
+                    "type": "string",
+                    "description": "Email address of the Uber user"
+                },
+                "picture": {
+                    "type": "string",
+                    "description": "Image URL of the Uber user."
+                }
+            }
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
