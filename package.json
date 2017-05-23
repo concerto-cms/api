@@ -32,10 +32,11 @@
     "compression": "^1.5.2",
     "cors": "^2.7.1",
     "express": "^4.13.3",
+    "mongoose": "^4.10.2",
     "morgan": "^1.8.0",
     "resource-router-middleware": "^0.6.0",
     "swagger-express-router": "^1.0.0",
-    "swagger-ui-express": "^1.0.8"
+    "swagger-ui-express": "^2.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.9.0",

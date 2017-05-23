@@ -4,6 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import bodyParser from 'body-parser';
 import managementModule from './management/module';
+import mongoose from 'mongoose';
+
 let app = express();
 app.server = http.createServer(app);
 
@@ -32,9 +34,11 @@ app.use((err, req, res, next) => {
 		message: err.message,
 	});
 });
-
-app.server.listen(process.env.PORT || 3000, () => {
-	console.log(`Started on port ${app.server.address().port}`);
+mongoose.Promise = Promise;
+mongoose.connect(process.env.MONGO_DB_URI || 'mongodb://mongo:27017/concerto').then(() => {
+    app.server.listen(process.env.PORT || 3000, () => {
+        console.log(`Started on port ${app.server.address().port}`);
+    });
 });
 
 export default app;

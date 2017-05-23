@@ -614,7 +614,7 @@
         "SiteUser": {
             "type": "object",
             "properties": {
-                "user_id": {
+                "userId": {
                     "type": "string",
                     "description": "Unique identifier of the user"
                 },
@@ -627,21 +627,21 @@
         "Profile": {
             "type": "object",
             "properties": {
-                "first_name": {
+                "id": {
                     "type": "string",
-                    "description": "First name of the Uber user."
+                    "description": "Unique identifier of the user"
                 },
-                "last_name": {
+                "firstName": {
                     "type": "string",
-                    "description": "Last name of the Uber user."
+                    "description": "First name of the user."
+                },
+                "lastName": {
+                    "type": "string",
+                    "description": "Last name of the user."
                 },
                 "email": {
                     "type": "string",
-                    "description": "Email address of the Uber user"
-                },
-                "picture": {
-                    "type": "string",
-                    "description": "Image URL of the Uber user."
+                    "description": "Email address of the user"
                 }
             }
         },
@@ -670,7 +670,24 @@
                     "type": "string"
                 },
                 "fields": {
-                    "type": "array"
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/BlockField",
+                    }
+                }
+            }
+        },
+        "BlockField": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
                 }
             }
         },
