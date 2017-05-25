@@ -672,7 +672,7 @@
                 "fields": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/BlockField",
+                        "$ref": "#/definitions/BlockField"
                     }
                 }
             }
