@@ -631,13 +631,17 @@
                     "type": "string",
                     "description": "Unique identifier of the user"
                 },
-                "firstName": {
+                "username": {
                     "type": "string",
-                    "description": "First name of the user."
+                    "description": "Username"
                 },
-                "lastName": {
+                "name": {
                     "type": "string",
-                    "description": "Last name of the user."
+                    "description": "(Nick)name of the user"
+                },
+                "picture": {
+                    "type": "string",
+                    "description": "Picture taken from gravatar or social account"
                 },
                 "email": {
                     "type": "string",
