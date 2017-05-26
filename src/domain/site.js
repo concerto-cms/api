@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 export const siteSchema = new mongoose.Schema({
     id: 'string',
-    name: 'string',
+    name: { type: String, required: true },
     users: [{
-        userId: 'string',
-        role: 'string',
+        userId: { type: String, required: true },
+        role: { type: String, required: true },
     }],
 });
 

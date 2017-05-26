@@ -2,11 +2,12 @@ import swagger from 'swagger-express-router';
 import swaggerUi from 'swagger-ui-express';
 import SitesController from './controller/SitesController';
 import ProfileController from './controller/ProfileController';
+import { Site } from '../domain/site';
 const getSiteMiddleware = (req, res, next) => {
     if (!req.params || !req.params.siteID) {
         return next();
     }
-    Site.findOne({_id: req.params.siteID}).then((result) => {
+    return Site.findOne({_id: req.params.siteID}).then((result) => {
         if (!result) {
             res.status(404).send({message: "Site not found"});
             return next();
@@ -21,7 +22,7 @@ const getSiteMiddleware = (req, res, next) => {
         return next();
     })
     .catch((err) => {
-        console.log(err);
+        console.error(err);
         res.status(400).send(err);
         return next();
     });
@@ -30,8 +31,8 @@ const getSiteMiddleware = (req, res, next) => {
 module.exports = (app) => {
     const mgmtSpec = require('../spec/management-api/swagger.json');
     // Management API
-    app.use('/mgmt/v1/doc', swaggerUi.serve, swaggerUi.setup(mgmtSpec));
     app.use('/mgmt/v1/sites/:siteID', getSiteMiddleware);
+    app.use('/mgmt/v1/doc', swaggerUi.serve, swaggerUi.setup(mgmtSpec));
     swagger.setUpRoutes({
         sites: SitesController(),
         profile: ProfileController(),

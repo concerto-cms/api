@@ -6,6 +6,7 @@ import bodyParser from 'body-parser';
 import managementModule from './management/module';
 import mongoose from 'mongoose';
 import jwt from'express-jwt';
+import expressValidator from 'express-validator';
 
 let app = express();
 app.server = http.createServer(app);
@@ -34,6 +35,7 @@ app.use(cors());
 app.use(bodyParser.json({
 	limit : '1000kb'
 }));
+app.use(expressValidator());
 
 // API modules
 managementModule(app);
