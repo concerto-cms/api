@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 
 export const modelSchema = new mongoose.Schema({
-    id: 'string',
-    name: 'string',
+    id: String,
+    name: String,
+    siteId: String,
     fields: [{
-        name: 'string',
-        label: 'string',
-        type: 'string',
+        name: String,
+        label: String,
+        type: String,
     }],
 
 });

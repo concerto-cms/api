@@ -497,7 +497,68 @@
                 }
             }
         },
-        "/sites/{siteID}/models/{modelID}/content/{contentID}": {
+        "/sites/{siteID}/content": {
+            "parameters": [
+                {
+                    "name": "siteID",
+                    "in": "path",
+                    "required": true,
+                    "type": "string"
+                },
+                {
+                    "name": "modelID",
+                    "in": "query",
+                    "required": false,
+                    "type": "string"
+                }
+            ],
+            "get": {
+                "tags": [
+                    "Content"
+                ],
+                "summary": "List of content items",
+                "description": "Retrieve a list of content items\n",
+                "parameters": [],
+                "x-swagger-router-controller": "content",
+                "operationId": "getContent",
+                "responses": {
+                    "200": {
+                        "description": "An array of content items",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Content"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create a new content item",
+                "tags": [
+                    "Content"
+                ],
+                "description": "Create a new content item",
+                "parameters": [],
+                "x-swagger-router-controller": "content",
+                "operationId": "createItem",
+                "responses": {
+                    "200": {
+                        "description": "Content item created successfully",
+                        "schema": {
+                            "$ref": "#/definitions/Content"
+                        }
+                    }
+                }
+            }
+        },
+        "/sites/{siteID}/content/{contentID}": {
             "parameters": [
                 {
                     "name": "siteID",
