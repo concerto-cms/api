@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
 const contentSchema = new mongoose.Schema(Object.assign({
-    id: 'string',
+    id: String,
+    modelId: String,
+    siteId: String,
 }), { strict: false });
 
 

@@ -3,19 +3,21 @@ import swaggerUi from 'swagger-ui-express';
 import SitesController from './controller/SitesController';
 import ProfileController from './controller/ProfileController';
 import ModelsController from './controller/ModelsController';
-import { siteMiddleware, modelMiddleware } from './middleware';
+import ContentController from './controller/ContentController';
+import { middleware } from './middleware';
 
 module.exports = (app) => {
     const mgmtSpec = require('../spec/management-api/swagger.json');
     // Management API
-    app.use('/mgmt/v1/sites/:siteID', siteMiddleware);
-    app.use('/mgmt/v1/sites/:siteID/models/:modelID', modelMiddleware);
+    app.use('/mgmt/v1/sites/:siteID/models/:modelID', middleware);
+    app.use('/mgmt/v1/sites/:siteID/content/:contentID', middleware);
+    app.use('/mgmt/v1/sites/:siteID', middleware);
     app.use('/mgmt/v1/doc', swaggerUi.serve, swaggerUi.setup(mgmtSpec));
     swagger.setUpRoutes({
-        sites: SitesController(),
         profile: ProfileController(),
-        blocks: {},
+        sites: SitesController(),
         models: ModelsController(),
-        content: {},
+        content: ContentController(),
+        blocks: {},
     }, app, mgmtSpec, true);
 };

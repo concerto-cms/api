@@ -1,23 +1,20 @@
-import { Site } from '../../domain';
-const getUserRole = (site, userId) => {
-    for (let user of site.users) {
-        if (user.userId === userId) {
-            return user.role;
-        }
-    }
-    return null;
-};
-const mapUserRole = (site, userId) => {
-    site.role = getUserRole(site, userId);
-    return site;
-};
+import { Content } from '../../domain';
 
 module.exports = () => {
     return {
-        getAvailableSites: (req, res) => {
-            Site.find({users:{$elemMatch:{userId: req.user.user_id}}})
+        getContent: (req, res) => {
+            if (!req.site) {
+                res.status(500).send('site not defined');
+                return;
+            }
+            const conditions = {
+                siteId: req.site._id,
+            };
+            if (req.model) {
+                conditions.modelId = req.model._id;
+            }
+            Content.find(conditions)
                 .then(result => {
-                    result = result.map(site => mapUserRole(site.toJSON(), req.user.user_id));
                     res.json(result);
                 })
                 .catch(err => {
@@ -25,7 +22,7 @@ module.exports = () => {
                     console.error(err);
                 });
         },
-        getSite: (req, res) => {
+        getContentItem: (req, res) => {
             if (!req.site) {
                 res.status(500).send('site not defined');
                 return;
