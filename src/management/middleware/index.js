@@ -1,7 +1,7 @@
 import { Site, Model, Content } from '../../domain';
 
 export const handleSite = (req, res) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         return Site.findOne({
             _id: req.params.siteID,
         }).then((result) => {
@@ -28,7 +28,7 @@ export const handleSite = (req, res) => {
     })
 };
 export const handleModel = (req, res) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         return Model.findOne({
             _id: req.params.modelID,
             siteId: req.params.siteID,
@@ -49,7 +49,7 @@ export const handleModel = (req, res) => {
     })
 };
 export const handleContent = (req, res) => {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
         return Content.findOne({
             _id: req.params.contentID,
             siteId: req.params.siteID,
@@ -84,7 +84,7 @@ export const middleware = (req, res, next) => {
     if (p.length === 0) {
         return next();
     }
-    Promise.all(p).then((result) => {
+    Promise.all(p).then(() => {
         if (req.site) {
             console.log('Site: ', req.site.name);
         }

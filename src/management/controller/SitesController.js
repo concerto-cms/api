@@ -79,7 +79,7 @@ module.exports = () => {
                  *  - An owner can't remove himself from the list, or change his role
                  */
                 site.save()
-                    .then(updated => {
+                    .then(() => {
                         res.status(200).send(mapUserRole(site.toJSON(), req.user.user_id));
                     })
                     .catch(err => {

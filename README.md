@@ -1,61 +1,46 @@
-Express & ES6 REST API Boilerplate
+Concerto Headless CMS - API
 ==================================
+[![Travis](https://img.shields.io/travis/concerto-cms/api.svg)](https://travis-ci.org/concerto-cms/api)
 
-[![bitHound Score](https://www.bithound.io/github/developit/express-es6-rest-api/badges/score.svg)](https://www.bithound.io/github/developit/express-es6-rest-api)
+Concerto CMS is driven by this Express JS backend that will consist of 2 different API endpoints:
+- the Management API will support the Angular 2 admin app
+- the Consumer API will be used by the website to publish the content
 
-This is a straightforward boilerplate for building REST APIs with ES6 and Express.
+Running the API
+-----------------
 
-- ES6 support via [babel](https://babeljs.io)
-- REST resources as middleware via [resource-router-middleware](https://github.com/developit/resource-router-middleware)
-- CORS support via [cors](https://github.com/troygoode/node-cors)
-- Body Parsing via [body-parser](https://github.com/expressjs/body-parser)
-
-> Tip: If you are using [Mongoose](https://github.com/Automattic/mongoose), you can automatically expose your Models as REST resources using [restful-mongoose](https://git.io/restful-mongoose).
-
-Getting Started
----------------
+The provided Docker-compose file will make it easy to run the API
 
 ```sh
 # clone it
-git clone git@github.com:developit/express-es6-rest-api.git
-cd express-es6-rest-api
-
-# Make it your own
-rm -rf .git && git init && npm init
+git clone git@github.com:concerto-cms/api.git
+cd api
 
 # Install dependencies
 npm install
 
-# Start development live-reload server
-PORT=8080 npm run dev
-
-# Start production server:
-PORT=8080 npm start
+# Run using docker-compose
+docker-compose up
 ```
-Docker Support
-------
+
+Available NPM scripts
+-----------------------
 ```sh
-cd express-es6-rest-api
+# Start dev server
+npm start
 
-# Build your docker
-docker build -t es6/api-service .
-#            ^      ^           ^
-#          tag  tag name      Dockerfile location
+# Build for production (using Babel)
+npm run build
 
-# run your docker
-docker run -p 8080:8080 es6/api-service
-#                 ^            ^
-#          bind the port    container tag
-#          to your host
-#          machine port   
+# Run production server
+npm run serve
 
+# Run tests
+npm test
 ```
 
-Docker Demo
--------------------------
-It's supposed to be pretty easy to take your Docker to your favourite cloud service, here's a demo of what's our Dockerized bolierplate is like: [https://docker-deployment-yudfxfiaja.now.sh/api](https://docker-deployment-yudfxfiaja.now.sh/api)
 
 License
 -------
 
-MIT
+BSD-3

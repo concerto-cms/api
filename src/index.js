@@ -39,6 +39,7 @@ app.use((req, res, next) => {
         code: res.statusCode,
         message: 'Not found',
     });
+    next();
 });
 
 app.use(function (err, req, res, next) {
@@ -52,9 +53,10 @@ app.use(function (err, req, res, next) {
 app.use((err, req, res, next) => {
     console.error(err);
     res.status(500).send({
-    	code: res.statusCode,
+        code: res.statusCode,
 		message: err.message,
 	});
+    next();
 });
 
 // Mongo connection

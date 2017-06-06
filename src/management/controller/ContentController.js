@@ -27,14 +27,10 @@ module.exports = () => {
                 res.status(500).send('site not defined');
                 return;
             }
-            res.status(200).send(mapUserRole(req.site.toJSON(), req.user.user_id));
+            res.status(200).send(req.content.toJSON());
         },
 
-        /**
-         * @param req
-         * @param res
-         */
-        createSite: (req, res) => {
+/*        createSite: (req, res) => {
             req.checkBody('name', 'Name is required').notEmpty();
             req.getValidationResult().then(function(result) {
                 if (!result.isEmpty()) {
@@ -54,10 +50,10 @@ module.exports = () => {
             });
         },
 
-        /**
+        /!**
          * @param req
          * @param res
-         */
+         *!/
         updateSite: (req, res) => {
             if (req.site.role !== 'OWNER') {
                 return res.status(403).send('You are not the owner of this site');
@@ -71,10 +67,10 @@ module.exports = () => {
                 const site = req.site;
                 site.set('name', req.body.name);
 
-                /**
+                /!**
                  * @todo some logic will be required to deal with the users attribute:
                  *  - An owner can't remove himself from the list, or change his role
-                 */
+                 *!/
                 site.save()
                     .then(updated => {
                         res.status(200).send(mapUserRole(site.toJSON(), req.user.user_id));
@@ -98,6 +94,6 @@ module.exports = () => {
                     res.status(400).json(err);
                     console.error(err);
                 });
-        }
+        }*/
     }
 };
