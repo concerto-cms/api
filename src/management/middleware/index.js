@@ -12,6 +12,7 @@ export const handleSite = (req, res) => {
             for (let siteUser of result.users) {
                 if (siteUser.userId === req.user.user_id) {
                     req.site = result;
+                    req.site.role = siteUser.role;
                     return resolve(result);
                 }
             }
@@ -33,7 +34,7 @@ export const handleModel = (req, res) => {
             siteId: req.params.siteID,
         }).then((result) => {
             if (!result) {
-                res.status(404).send({message: "Site not found"});
+                res.status(404).send({message: "Model not found"});
                 return resolve();
             }
             req.model = result;
