@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "concerto-api",
-      "script": "build/src/server.js",
+      "script": "dist/index.js",
       "merge_logs": true,
       "max_restarts": 20,
       "instances": 4,

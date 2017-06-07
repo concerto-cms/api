@@ -19,5 +19,5 @@ COPY ./ $APP_HOME
 
 RUN npm run build
 
-EXPOSE 8080
+EXPOSE 3000
 CMD ["pm2", "start", "processes.json", "--no-daemon"]
