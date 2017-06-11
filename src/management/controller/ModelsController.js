@@ -29,7 +29,9 @@ module.exports = () => {
                 const model = new Model({
                     name: req.body.name,
                     siteId: req.site._id,
-                    fields: []
+                    fields: [],
+                    structure: req.body.structure || 'list',
+                    isWebpage: req.body.isWebpage !== false,
                 });
                 model.save().then(() => {
                     res.status(200).send(model.toJSON());

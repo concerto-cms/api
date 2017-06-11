@@ -765,6 +765,13 @@
                 "name": {
                     "type": "string"
                 },
+                "isWebpage": {
+                    "type": "boolean"
+                },
+                "structure": {
+                    "type": "string",
+                    "enum": ["list", "single", "tree"]
+                },
                 "fields": {
                     "type": "array"
                 }
