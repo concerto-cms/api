@@ -4,6 +4,8 @@ export const modelSchema = new mongoose.Schema({
     id: String,
     name: String,
     siteId: String,
+    structure: String,
+    isWebpage: Boolean,
     fields: [{
         name: String,
         label: String,
