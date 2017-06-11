@@ -58,7 +58,7 @@ export const handleContent = (req, res) => {
                 res.status(404).send({message: "Content not found"});
                 return resolve();
             }
-            req.model = result;
+            req.content = result;
             return resolve(result);
         })
             .catch((err) => {
@@ -72,6 +72,7 @@ export const handleContent = (req, res) => {
 
 export const middleware = (req, res, next) => {
     const p = [];
+    console.log(req.params);
     if (req.params.siteID && !req.site) {
         p.push(handleSite(req, res));
         if (req.params.modelID  && !req.model) {

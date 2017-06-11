@@ -17,8 +17,8 @@ module.exports = () => {
                 res.status(500).send('site not defined');
                 return;
             }
-            if (req.site.role !== 'OWNER') {
-                return res.status(403).send('You are not the owner of this site');
+            if (!['OWNER', 'DEVELOPER'].includes(req.site.role)) {
+                return res.status(403).send('You are not a developer of this site');
             }
             req.checkBody('name', 'Name is required').notEmpty();
             req.getValidationResult().then(function(result) {
