@@ -68,6 +68,18 @@ module.exports = () => {
             }
         },
 
+        removeItem: (req, res) => {
+            req.content.remove()
+                .then(() => {
+                    res.status(204).send();
+                })
+                .catch(err => {
+                    res.status(400).json(err);
+                    console.error(err);
+                });
+
+        }
+
 
         /*
                 createSite: (req, res) => {
