@@ -18,6 +18,7 @@ app.use(jwt({
 
 // logger
 app.use(morgan('dev'));
+
 /*
 morgan.token('remote-user', (req, res) => req.user ? req.user.name : '_GUEST');
 app.use(morgan(':remote-user :method :url :status :response-time ms - :res[content-length]'));
