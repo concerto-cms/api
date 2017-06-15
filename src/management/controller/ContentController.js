@@ -40,7 +40,6 @@ module.exports = () => {
                     if (model.isWebpage) {
                         req.checkBody(['webpage', 'url'], 'Url is required').notEmpty();
                         req.checkBody(['webpage', 'title'], 'Title is required').notEmpty();
-                        req.checkBody(['webpage', 'meta', 'description'], 'Title is required').notEmpty();
                     }
                     req.getValidationResult().then(function(result) {
                         if (!result.isEmpty()) {
@@ -78,6 +77,36 @@ module.exports = () => {
                     console.error(err);
                 });
 
+        },
+
+        updateContentItem: (req, res) => {
+            const content = req.content;
+            req.checkBody('name', 'Name is required').notEmpty();
+
+            Model.findById(content.modelId).then(model => {
+                if (model.isWebpage) {
+                    req.checkBody(['webpage', 'url'], 'Url is required').notEmpty();
+                    req.checkBody(['webpage', 'title'], 'Title is required').notEmpty();
+                }
+                req.getValidationResult().then(function(result) {
+                    if (!result.isEmpty()) {
+                        res.status(400).send(result.array());
+                        return;
+                    }
+                    content.name = req.body.name;
+                    content.lastModified = Date.now();
+                    if (model.isWebpage) {
+                        content.webpage = req.body.webpage;
+                    }
+                    content.save().then(() => {
+                        res.status(200).send(content.toJSON());
+                    }).catch(err => {
+                        console.error(err);
+                        res.status(500).send('error occured');
+                    });
+                });
+
+            });
         }
 
 

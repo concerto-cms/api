@@ -42,8 +42,8 @@ module.exports = () => {
             });
         },
         removeModel(req, res) {
-            if (req.site.role !== 'OWNER') {
-                return res.status(403).send('You are not the owner of this site');
+            if (!['OWNER', 'DEVELOPER'].includes(req.site.role)) {
+                return res.status(403).send('You are not a developer of this site');
             }
             if (!req.model) {
                 res.status(500).send('model not defined');
@@ -66,8 +66,8 @@ module.exports = () => {
             res.status(200).send(req.model.toJSON());
         },
         updateModel: (req, res) => {
-            if (req.site.role !== 'OWNER') {
-                return res.status(403).send('You are not the owner of this site');
+            if (!['OWNER', 'DEVELOPER'].includes(req.site.role)) {
+                return res.status(403).send('You are not a developer of this site');
             }
             const model = req.model;
             req.checkBody('name', 'Name is required').notEmpty();
