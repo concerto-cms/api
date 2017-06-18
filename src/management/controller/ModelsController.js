@@ -26,6 +26,7 @@ module.exports = () => {
                     res.status(400).send(result.array());
                     return;
                 }
+                console.log(req.body);
                 const model = new Model({
                     name: req.body.name,
                     siteId: req.site._id,
@@ -69,6 +70,7 @@ module.exports = () => {
             if (!['OWNER', 'DEVELOPER'].includes(req.site.role)) {
                 return res.status(403).send('You are not a developer of this site');
             }
+            console.log(req.body);
             const model = req.model;
             req.checkBody('name', 'Name is required').notEmpty();
             req.getValidationResult().then(result => {
@@ -77,6 +79,7 @@ module.exports = () => {
                     return;
                 }
                 model.name = req.body.name;
+                model.fields = req.body.fields;
                 /**
                  * @todo some logic will be required to deal with the users attribute:
                  *  - An owner can't remove himself from the list, or change his role

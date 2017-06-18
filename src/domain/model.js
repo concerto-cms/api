@@ -9,7 +9,9 @@ export const modelSchema = new mongoose.Schema({
     fields: [{
         name: String,
         label: String,
-        type: String,
+        type: {
+            type: String,
+        },
     }],
 
 });
