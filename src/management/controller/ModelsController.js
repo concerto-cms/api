@@ -30,7 +30,7 @@ module.exports = () => {
                 const model = new Model({
                     name: req.body.name,
                     siteId: req.site._id,
-                    fields: [],
+                    fields: req.body.fields || [],
                     structure: req.body.structure || 'list',
                     isWebpage: req.body.isWebpage !== false,
                 });

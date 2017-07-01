@@ -14,10 +14,9 @@ const contentSchema = new mongoose.Schema(Object.assign({
         },
         url: { type: String }
     },
-    data: [{
-        key: String,
-        value: mongoose.Schema.Types.Mixed,
-    }],
+    data: {
+        type: mongoose.Schema.Types.Mixed,
+    },
 }));
 
 
