@@ -12,6 +12,9 @@ export const modelSchema = new mongoose.Schema({
         type: {
             type: String,
         },
+        options: {
+            type: mongoose.Schema.Types.Mixed,
+        }
     }],
 
 });
