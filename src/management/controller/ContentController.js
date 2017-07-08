@@ -98,6 +98,9 @@ module.exports = () => {
                     if (model.isWebpage) {
                         content.webpage = req.body.webpage;
                     }
+                    if (req.body.data) {
+                        content.data = req.body.data;
+                    }
                     content.save().then(() => {
                         res.status(200).send(content.toJSON());
                     }).catch(err => {
